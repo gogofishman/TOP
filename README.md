@@ -6,7 +6,7 @@
 
 记得装cacbotself.dll，少了这个有个别机制会不报
 
-
+spl配套预设：https://github.com/gogofishman/TOP/blob/main/splatoon.md
 
 ## 匹配攻略：
 
