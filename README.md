@@ -354,7 +354,7 @@ const 索尼 = {
 
 ![QQ%E6%88%AA%E5%9B%BE20230227181550.jpg](https://p.sda1.dev/10/89e52fa7d5edfc4bb63c58a373a7428e/QQ截图20230227181550.jpg)
 
-**后半：**tts会这么报
+**后半**：tts会这么报
 
 ![QQ%E6%88%AA%E5%9B%BE20230301182100.jpg](https://p.sda1.dev/10/a5563349f57e95a3eedc916608da04fc/QQ截图20230301182100.jpg)
 
