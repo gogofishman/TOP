@@ -28,7 +28,7 @@
 
 或者游戏中摁esc
 
-![QQ截图20230501210510](img\QQ截图20230501210510.png)
+![](img/QQ截图20230501210510.png)
 
 # spl安装
 
@@ -64,13 +64,16 @@ https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaste
 
 1.勾选批量导入
 
-![QQ截图20230501205645](img\QQ截图20230501205645.png)
+![QQ截图20230501205645](img/QQ截图20230501205645.png)
 
 2.打开spl配套预设：https://github.com/gogofishman/TOP/blob/main/spl/splatoon.md 
 
 3.依次点击每个预设的复制按钮
 
-![QQ截图20230501210125](img\QQ截图20230501210125.png)
+![QQ截图20230501210125](img/QQ截图20230501210125.png)
 
 4.全部导入后取消"批量导入"的勾选
 
+5.导入完成
+
+![QQ截图20230501213812](img/QQ截图20230501213812.png)
