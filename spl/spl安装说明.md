@@ -30,7 +30,5 @@
 
 # spl安装
 
-![](https://github.com/gogofishman/TOP/blob/86f69101e9bf5e6f85e345c656aa61f5397781ab/spl/img/QQ%E6%88%AA%E5%9B%BE20230501195109.jpg)
-
-![](img/QQ截图20230501195109.jpg)
+<img src="img/QQ截图20230501195109.jpg" style="zoom:50%;" />
 
