@@ -91,163 +91,124 @@ Errer : spl预设由E佬完成, 我对部分预设稍微加了点美化
 
 关闭填false，开启填true 
 
-#### 总开关
+#### 通用设置
 
 ```js
-const portOfSplatoon = 47774; 
-//splatoon的http端口（后续准备淘汰spl改用ffd了）
+//是否开启指挥模式(目标标记，聊天框播报) (一个队必须只有一个人开,不然会顶掉)
+const 指挥模式 = false;
 
-const usePostNamazu = true; 
-//是否启用鲶鱼精？(关闭后，标记，聊天框播报都用不了)
+//优先级 (也可以只设置你们队的8个职业,没有的职业不放进去也行),和cactbotSelf插件设置的优先级完全无关，本js独立
+//H1 MT ST D1 D2 D3 D4 H2
+const 优先级 = [
+    '白魔',
+    '占星',
+    '战士',
+    '黑骑',
+    '枪刃',
+    '骑士',
+    '武士',
+    '镰刀',
+    '武僧',
+    '龙骑',
+    '忍者',
+    '机工',
+    '诗人',
+    '舞者',
+    '黑魔',
+    '召唤',
+    '赤魔',
+    '贤者',
+    '学者'
+];
+
+//P2一运索尼后击退，如果分摊点名同组，优先靠下面被点名的和他的连线对象换左右
+//倒_是拉远线时右边组的情况
+const 索尼 = {
+    圆圈: '第一排',
+    叉: '第二排',
+    三角: '第三排',
+    方块: '第四排',
+    倒_圆圈: '第四排',
+    倒_叉: '第三排',
+    倒_三角: '第二排',
+    倒_方块: '第一排',
+};
+
+//P3小电视打法，1为十字、2为日基（日基打法只标点）、3什么都不报什么都不标
+const P3TV = 2;
 ```
 
-#### 鲶鱼精小队播报开关
+
+
+#### 指挥设置
 
 ```js
-const PartyPostNamazu = true; 
-//鲶鱼精聊天框全队播报总开关
+//鲶鱼精聊天框全队播报
+const PartyPostNamazu = true; //鲶鱼精聊天框全队播报总开关
+const P1PostNamazu = true; //P1接线踩塔是否鲶鱼精聊天框全队播报
+const P2PostNamazu = true; //P2狂暴倒计时是否鲶鱼精聊天框全队播报
+const P3PostNamazu1 = true; //P3HW塔颜色播报
+const P3PostNamazu = true; //P3小电视站位是否鲶鱼精聊天框全队播报
+const P5PostNamazu = true; //P5是否鲶鱼精聊天框全队播报
+const P6PostNamazu = true; //P6是否鲶鱼精聊天框全队播报
 
-const P1PostNamazu = true; 
-//P1接线踩塔是否鲶鱼精聊天框全队播报
+//标记
+const useMark = true; //是否启用标记？（需确保鲶鱼精已启用）
+const Mark = [1, 2, 3, 4, 5, 6]; //分P启用标记，不要开标记的P删掉（比如不要P3P5开那就 [1,2,4,6] ）
+const onlyMeMark = true; //P1接线标记是否仅自己可见？
+const onlyMeMarkP2 = false; //P2一运标记是否仅自己可见？
+const onlyMeMarkP2_2 = false; //P2二运双T标记是否尽自己可见？
+const onlyMeMarkP2_5 = false; //P2.5标记是否仅自己可见？
+const onlyMeMarkP3 = false; //P3小电视点名标记是否仅自己可见？
+const onlyMeMarkP5 = false; //P5点名标记是否仅自己可见？
 
-const P2PostNamazu = true; 
-//P2狂暴倒计时是否鲶鱼精聊天框全队播报
-
-const P3PostNamazu1 = true; 
-//P3HW塔颜色播报
-
-const P3PostNamazu = true; 
-//P3小电视站位是否鲶鱼精聊天框全队播报
-
-const P5PostNamazu = true; 
-//P5是否鲶鱼精聊天框全队播报
-
-const P6PostNamazu = true; 
-//P6是否鲶鱼精聊天框全队播报
-```
-
-
-
-#### 标记开关
-
-```js
-const useMark = true; 
-//是否启用标记？（需确保鲶鱼精已启用）
-
-const onlyMeMark = true; 
-//P1接线标记是否仅自己可见？
-
-const onlyMeMarkP2 = true; 
-//P2一运标记是否仅自己可见？
-
-const onlyMeMarkP2_2 = false; 
-//P2二运双T标记是否尽自己可见？
-
-const onlyMeMarkP2_5 = false; 
-//P2.5标记是否仅自己可见？
-
-const onlyMeMarkP3 = false; 
-//P3小电视点名标记是否仅自己可见？
-
-const onlyMeMarkP5 = false; 
-//P5点名标记是否仅自己可见？
-
-const P2一运标记 = { 
-  左1: 'attack1',
-  左2: 'attack2',
-  左3: 'attack3',
-  左4: 'attack4',
-  右1: 'bind1',
-  右2: 'bind2',
-  右3: 'bind3',
-  右4: 'square',
-}
-//标记左边用攻击标记，右边锁链，从上到下1234 (因为没有锁链4，所以右4用方块代替)
-
+//P2一运标记, 标记左边用攻击标记，右边锁链，从上到下1234 (因为没有锁链4，所以右4用方块代替)
+const P2一运标记 = {
+    左1: 'attack1',
+    左2: 'attack2',
+    左3: 'attack3',
+    左4: 'attack4',
+    右1: 'bind1',
+    右2: 'bind2',
+    右3: 'bind3',
+    右4: 'square',
+};
 const P5一运标记 = {
     外侧_上: 'attack1',
     外侧_下: 'attack2',
     内侧_上: 'stop1',
     内侧_下: 'stop2',
 };
-
 const P5二运标记 = {
-	上: 'bind1',
-	下: 'attack4',
-	左: 'attack2',
-	右: 'bind3',
-	左上: 'attack1',
-	右上: 'bind2',
-	左下: 'attack3',
-	右下: 'stop1'
+    上: 'bind1',
+    下: 'attack4',
+    左: 'attack2',
+    右: 'bind3',
+    左上: 'attack1',
+    右上: 'bind2',
+    左下: 'attack3',
+    右下: 'stop1'
 };
-
 const P5二运后半标记 = {
-	远传递左: 'attack1',
-	手引导左: 'attack2',
-	手引导右: 'attack3',
-	远传递右: 'attack4',
-	世界近: 'bind1',
-	世界远: 'stop1',
-	近传递左: 'bind2',
-	近传递右: 'bind3',
+    远传递左: 'attack1',
+    手引导左: 'attack2',
+    手引导右: 'attack3',
+    远传递右: 'attack4',
+    世界近: 'bind1',
+    世界远: 'stop1',
+    近传递左: 'bind2',
+    近传递右: 'bind3',
 };
-
-const P5三运三传标记 = {   
-	世界近: 'bind1',
-	世界远: 'attack1',
-	小电视左: 'stop1',
-	小电视右: 'stop2',
-	远传递左: 'attack2',
-	远传递右: 'attack3',
-	近传递上: 'bind2',
-	近传递下: 'bind3',
+const P5三运三传标记 = {   //四传也一样，小电视等于拉线
+    世界近: 'bind1',
+    世界远: 'attack1',
+    小电视左: 'stop1',
+    小电视右: 'stop2',
+    远传递左: 'attack2',
+    远传递右: 'attack3',
+    近传递上: 'bind2',
+    近传递下: 'bind3',
 };
-//四传也一样，小电视等于拉线
-```
-
-#### 打法设置
-
-```js
-const 优先级 = [
-  '白魔',
-  '占星',
-  '黑骑',
-  '枪刃',
-  '战士',
-  '骑士',
-  '武士',
-  '镰刀',
-  '武僧',
-  '龙骑',
-  '忍者',
-  '机工',
-  '诗人',
-  '舞者',
-  '黑魔',
-  '召唤',
-  '赤魔',
-  '贤者',
-  '学者'
-];
-//职业优先级（从上到下依次变低）,和cactbotSelf这个插件设置的优先级完全无关，本js独立
-//自己根据自己队伍调整下上下顺序就行
-
-const 索尼 = { 
-  圆圈: '第一排',
-  叉: '第二排',
-  三角: '第三排',
-  方块: '第四排',
-  倒_圆圈: '第四排',
-  倒_叉: '第三排',
-  倒_三角: '第二排',
-  倒_方块: '第一排',
-};
-//设置的为从上到下的顺序 ,倒的就是右边拉长线时候的
-//P5二运同理，只不过竖着看变成面向男人(场外)从左到右横着看
-
-const P3TV = 1;
-//P3小电视打法，1为十字、2为日基（日基打法只标点）、3什么都不报什么都不标
 ```
 
 
@@ -298,7 +259,7 @@ const P3TV = 1;
 ![QQ%E6%88%AA%E5%9B%BE20230216180456.png](https://p.sda1.dev/9/707d93398c6673bfe7d42b8c80ff769e/QQ截图20230216180456.png)
 
 - **二运**：没啥好说的，用所有人站一起吃陨石的打法，无脑的一比
-- **狂暴倒计时**：
+- **狂暴倒计时**：(最新版中取消了se.1的声音)
 
 ![QQ%E6%88%AA%E5%9B%BE20230216180844.png](https://p.sda1.dev/9/7e9e2227eef48688d3af032b7825870c/QQ截图20230216180844.png)
 

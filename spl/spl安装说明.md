@@ -77,3 +77,21 @@ https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaste
 5.导入完成
 
 ![QQ截图20230501213812](img/QQ截图20230501213812.png)
+
+
+
+# 迷你欧米茄插件
+
+可以让P1欧米茄变成超级迷你大小,方便观察连线
+
+1.加载库
+
+```
+https://raw.githubusercontent.com/paissaheavyindustries/Dalamud-Repo/main/repo.json
+```
+
+2.安装Chibi Omega插件
+
+3.设置这么修改
+
+![](img/QQ截图20230501215237.png)
