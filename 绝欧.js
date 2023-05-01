@@ -1,8 +1,54 @@
 //5.1.0
-//////////////////自定义设置
-const portOfSplatoon = 47774; //底裤系带的位置
-const usePostNamazu = true; //是否启用鲶鱼精？关闭填false，开启填true (关闭后，标记，聊天框播报都用不了)
 
+//是否开启指挥模式(目标标记，聊天框播报) (一个队必须只有一个人开,不然会顶掉)
+const 指挥模式 = false;
+
+//优先级 (也可以只设置你们队的8个职业,没有的职业不放进去也行),和cactbotSelf插件设置的优先级完全无关，本js独立
+//H1 MT ST D1 D2 D3 D4 H2
+const 优先级 = [
+    '白魔',
+    '占星',
+    '战士',
+    '黑骑',
+    '枪刃',
+    '骑士',
+    '武士',
+    '镰刀',
+    '武僧',
+    '龙骑',
+    '忍者',
+    '机工',
+    '诗人',
+    '舞者',
+    '黑魔',
+    '召唤',
+    '赤魔',
+    '贤者',
+    '学者'
+];
+
+//P2一运索尼后击退，如果分摊点名同组，优先靠下面被点名的和他的连线对象换左右
+//倒_是拉远线时右边组的情况
+const 索尼 = {
+    圆圈: '第一排',
+    叉: '第二排',
+    三角: '第三排',
+    方块: '第四排',
+    倒_圆圈: '第四排',
+    倒_叉: '第三排',
+    倒_三角: '第二排',
+    倒_方块: '第一排',
+};
+
+//P3小电视打法，1为十字、2为日基（日基打法只标点）、3什么都不报什么都不标
+const P3TV = 2;
+
+
+
+
+
+//-----------------------------分割线-----------------------------------
+//以下是指挥的开关设置 (你不指挥就不用管下面的)
 
 //鲶鱼精聊天框全队播报
 const PartyPostNamazu = true; //鲶鱼精聊天框全队播报总开关
@@ -12,7 +58,6 @@ const P3PostNamazu1 = true; //P3HW塔颜色播报
 const P3PostNamazu = true; //P3小电视站位是否鲶鱼精聊天框全队播报
 const P5PostNamazu = true; //P5是否鲶鱼精聊天框全队播报
 const P6PostNamazu = true; //P6是否鲶鱼精聊天框全队播报
-
 
 //标记
 const useMark = true; //是否启用标记？（需确保鲶鱼精已启用）
@@ -24,7 +69,8 @@ const onlyMeMarkP2_5 = false; //P2.5标记是否仅自己可见？
 const onlyMeMarkP3 = false; //P3小电视点名标记是否仅自己可见？
 const onlyMeMarkP5 = false; //P5点名标记是否仅自己可见？
 
-const P2一运标记 = { //标记左边用攻击标记，右边锁链，从上到下1234 (因为没有锁链4，所以右4用方块代替)
+//P2一运标记, 标记左边用攻击标记，右边锁链，从上到下1234 (因为没有锁链4，所以右4用方块代替)
+const P2一运标记 = {
     左1: 'attack1',
     左2: 'attack2',
     左3: 'attack3',
@@ -35,10 +81,10 @@ const P2一运标记 = { //标记左边用攻击标记，右边锁链，从上�
     右4: 'square',
 };
 const P5一运标记 = {
-    外侧1: 'attack1',
-    外侧2: 'attack2',
-    内侧1: 'stop1',
-    内侧2: 'stop2',
+    外侧_上: 'attack1',
+    外侧_下: 'attack2',
+    内侧_上: 'stop1',
+    内侧_下: 'stop2',
 };
 const P5二运标记 = {
     上: 'bind1',
@@ -72,46 +118,13 @@ const P5三运三传标记 = {   //四传也一样，小电视等于拉线
 };
 
 
-//////////////////打法设置
+//-----------------------------分割线-----------------------------------
 
-//优先级（从上到下依次变低）,和cactbotSelf这个插件设置的优先级完全无关，本js独立
-const 优先级 = [
-    '战士',
-    '白魔',
-    '占星',
-    '黑骑',
-    '枪刃',
-    '骑士',
-    '武士',
-    '镰刀',
-    '武僧',
-    '龙骑',
-    '忍者',
-    '机工',
-    '诗人',
-    '舞者',
-    '黑魔',
-    '召唤',
-    '赤魔',
-    '贤者',
-    '学者'
-];
 
-//P2&P5
-const 索尼 = { //设置的为从上到下的顺序
-    圆圈: '第一排',
-    叉: '第二排',
-    三角: '第三排',
-    方块: '第四排',
-    倒_圆圈: '第四排',
-    倒_叉: '第三排',
-    倒_三角: '第二排',
-    倒_方块: '第一排',
-};
-//P2一运分组击退，如果分摊点名同组，优先靠下面被点名的和他的连线对象换左右，你们自己固定队这么打
 
-//P3小电视打法，1为十字、2为日基（日基打法只标点）、3什么都不报什么都不标
-const P3TV = 2;
+
+
+
 
 
 //函数
@@ -134,7 +147,7 @@ Array.prototype.过滤重复元素 = function () {
 
 //鲶鱼精
 function PostNamazu(type, text) {
-    if (usePostNamazu) {
+    if (指挥模式) {
         if (type === 'queue') {
             callOverlayHandler({
                 call: "PostNamazu",
@@ -166,7 +179,7 @@ function PostNamazu(type, text) {
 };
 
 function PostNamazuMarkClear() {
-    if (usePostNamazu) {
+    if (指挥模式) {
         callOverlayHandler({
             call: "PostNamazu",
             c: 'command',
@@ -220,6 +233,7 @@ function PostNamazu测试(text) {
 
 //POST
 function Splatoon(namespace, time, data) {
+    const portOfSplatoon = 47774; //底裤系带的位置
     fetch(`http://127.0.0.1:${portOfSplatoon}/?namespace=${namespace}&destroyAt=${time}`, {
         method: "POST",
         mode: "no-cors",
@@ -2230,56 +2244,56 @@ Options.Triggers.push({
                     PostNamazu('queue', [
                         {
                             c: 'command',
-                            p: '/p 离狂暴还有20秒 <se.1>',
+                            p: '/p 离狂暴还有20秒',
                         },
                         {
                             c: 'command',
-                            p: '/p 离狂暴还有10秒 <se.1>',
+                            p: '/p 离狂暴还有10秒',
                             d: 10 * 1000,
                         },
                         {
                             c: 'command',
-                            p: '/p 离狂暴还有9秒 <se.1>',
+                            p: '/p 离狂暴还有9秒',
                             d: 1000,
                         },
                         {
                             c: 'command',
-                            p: '/p 离狂暴还有8秒 <se.1>',
+                            p: '/p 离狂暴还有8秒',
                             d: 1000,
                         },
                         {
                             c: 'command',
-                            p: '/p 离狂暴还有7秒 <se.1>',
+                            p: '/p 离狂暴还有7秒',
                             d: 1000,
                         },
                         {
                             c: 'command',
-                            p: '/p 离狂暴还有6秒 <se.1>',
+                            p: '/p 离狂暴还有6秒',
                             d: 1000,
                         },
                         {
                             c: 'command',
-                            p: '/p 离狂暴还有5秒 <se.1>',
+                            p: '/p 离狂暴还有5秒',
                             d: 1000,
                         },
                         {
                             c: 'command',
-                            p: '/p 离狂暴还有4秒 <se.1>',
+                            p: '/p 离狂暴还有4秒',
                             d: 1000,
                         },
                         {
                             c: 'command',
-                            p: '/p 离狂暴还有3秒 <se.1>',
+                            p: '/p 离狂暴还有3秒',
                             d: 1000,
                         },
                         {
                             c: 'command',
-                            p: '/p 离狂暴还有2秒 <se.1>',
+                            p: '/p 离狂暴还有2秒',
                             d: 1000,
                         },
                         {
                             c: 'command',
-                            p: '/p 离狂暴还有1秒 <se.1>',
+                            p: '/p 离狂暴还有1秒',
                             d: 1000,
                         },
                     ]);
@@ -3364,22 +3378,22 @@ Options.Triggers.push({
                     data.P5一运走法.禁止组 = data.P5一运线.绿线[1];
                     PostNamazu('mark', {
                         Name: data.P5一运线.绿线[0][0],
-                        MarkType: P5一运标记.外侧1,
+                        MarkType: P5一运标记.外侧_上,
                         LocalOnly: onlyMeMarkP5,
                     });
                     PostNamazu('mark', {
                         Name: data.P5一运线.绿线[0][1],
-                        MarkType: P5一运标记.外侧2,
+                        MarkType: P5一运标记.外侧_下,
                         LocalOnly: onlyMeMarkP5,
                     });
                     PostNamazu('mark', {
                         Name: data.P5一运线.绿线[1][0],
-                        MarkType: P5一运标记.内侧1,
+                        MarkType: P5一运标记.内侧_上,
                         LocalOnly: onlyMeMarkP5,
                     });
                     PostNamazu('mark', {
                         Name: data.P5一运线.绿线[1][1],
-                        MarkType: P5一运标记.内侧2,
+                        MarkType: P5一运标记.内侧_下,
                         LocalOnly: onlyMeMarkP5,
                     });
                 }
@@ -5051,7 +5065,7 @@ Options.Triggers.push({
             suppressSeconds: 30,
             delaySeconds: 7,
             durationSeconds: 2,
-            alertText: '1穿',
+            alertText: '1',
             run: (data) => {
                 let namespace = 'P6 射手天箭1穿';
                 let time = '5000';
@@ -5069,7 +5083,7 @@ Options.Triggers.push({
             suppressSeconds: 30,
             delaySeconds: 10,
             durationSeconds: 2,
-            alertText: '2停',
+            alertText: '2',
         },
         {
             id: 'P6 射手天箭3穿',
@@ -5081,7 +5095,7 @@ Options.Triggers.push({
             suppressSeconds: 30,
             delaySeconds: 12,
             durationSeconds: 2,
-            alertText: '3穿',
+            alertText: '3',
             run: (data) => {
                 let json;
                 if (data.P6射手天箭 === '先口') {
@@ -5110,7 +5124,7 @@ Options.Triggers.push({
             durationSeconds: 2,
             alertText: (data) => {
                 if (data.P6射手天箭 === '先十') {
-                    return '4停'
+                    return '4'
                 } else {
                     let namespace = 'P6 射手天箭4穿';
                     let time = '2000';
@@ -5130,7 +5144,7 @@ Options.Triggers.push({
             suppressSeconds: 30,
             delaySeconds: 16,
             durationSeconds: 2,
-            alertText: '5穿',
+            alertText: '5',
             run: (data) => {
                 let namespace = 'P6 射手天箭5穿';
                 let time = (data.P6射手天箭 === '先口') ? '4000' : '2000';
@@ -5149,7 +5163,7 @@ Options.Triggers.push({
             delaySeconds: 18,
             durationSeconds: 2,
             alertText: (data) => {
-                var re = '';
+                let re = '';
                 if (data.P6count === 1) {
                     if (data.role === 'tank') {
                         re = '，死刑分散'
@@ -5165,9 +5179,9 @@ Options.Triggers.push({
                     let time = '2000';
                     let json = 射手天箭.中等8;
                     Splatoon(namespace, time, json);
-                    return '6穿' + re
+                    return '6' + re
                 } else {
-                    return '6停' + re
+                    return '6' + re
                 }
             },
         },

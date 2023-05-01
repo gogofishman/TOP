@@ -6,6 +6,8 @@
 
 记得装cacbotself.dll，少了这个有个别机制会不报
 
+spl安装方法:
+
 spl配套预设：https://github.com/gogofishman/TOP/blob/main/splatoon.md
 
 ## 匹配攻略：
@@ -142,12 +144,12 @@ const P2一运标记 = {
 }
 //标记左边用攻击标记，右边锁链，从上到下1234 (因为没有锁链4，所以右4用方块代替)
 
-const P5一运标记={
-	外侧1:'attack1',
-	外侧2:'attack2',
-	内侧1:'stop1',
-	内侧2:'stop2',
-}
+const P5一运标记 = {
+    外侧_上: 'attack1',
+    外侧_下: 'attack2',
+    内侧_上: 'stop1',
+    内侧_下: 'stop2',
+};
 
 const P5二运标记 = {
 	上: 'bind1',
