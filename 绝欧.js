@@ -1,4 +1,4 @@
-//3.24.0
+//5.1.0
 //////////////////自定义设置
 const portOfSplatoon = 47774; //底裤系带的位置
 const usePostNamazu = true; //是否启用鲶鱼精？关闭填false，开启填true (关闭后，标记，聊天框播报都用不了)
