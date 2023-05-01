@@ -1,5 +1,11 @@
 # The Omega Protocol EZgame
 
+
+
+### **yoyokity制作**
+
+
+
 绝欧米茄cacbot自定义js触发器，附带3D绘制
 
 本科技讲究的就是一个给大脑按摩，目标是大脑瘫痪、小脑发育不全者都能过绝欧！
@@ -8,7 +14,19 @@
 
 spl安装方法:  https://github.com/gogofishman/TOP/blob/main/spl/spl安装说明.md
 
-spl配套预设：https://github.com/gogofishman/TOP/blob/main/splatoon.md
+spl配套预设：https://github.com/gogofishman/TOP/blob/main/spl/splatoon.md
+
+
+
+## 鸣谢
+
+牙刷play : 不惜进去踩缝纫机, 完成了P1 部分
+
+Errer : spl预设由E佬完成, 我对部分预设稍微加了点美化
+
+内部群全体群友 : 感谢兄弟们帮我完成测试找出各种bug ,并时刻监督我剁屌
+
+
 
 ## 匹配攻略：
 
@@ -20,6 +38,8 @@ spl配套预设：https://github.com/gogofishman/TOP/blob/main/splatoon.md
 ## 更新
 
 **最新进度：全部完成**
+
+2023.5.1: 优化了设置部分
 
 2023.3.21.21:47：全部完成，加入了P2.5手臂范围spl画图，P5每次死刑双T标禁止并提醒人群远离，P5三运前半小队鲶鱼精播报，修复P6宇宙天箭和P6地火，同时加入了P6狂暴输出检测
 

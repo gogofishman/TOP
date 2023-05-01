@@ -26,9 +26,51 @@
 
 
 
+或者游戏中摁esc
 
+![QQ截图20230501210510](img\QQ截图20230501210510.png)
 
 # spl安装
 
-<img src="img/QQ截图20230501195109.jpg" style="zoom:50%;" />
+1.在设置中填入G佬的仓库,不然的话国服是默认不能用spl的
+
+```
+https://raw.githubusercontent.com/gamous/DalamudPluginsCN-Dev/main/MordionGaol.json
+```
+
+如果是国际服,填入原始库
+
+```
+https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json
+```
+
+![](img/QQ截图20230501204805.png)
+
+
+
+2.在插件安装器中安装splatoon
+
+![](img/QQ截图20230501204944.png)
+
+
+
+3.设置spl (不一模一样出了问题就是自己纯傻逼)
+
+![](img/QQ截图20230501205013.png)
+
+
+
+# spl预设导入
+
+1.勾选批量导入
+
+![QQ截图20230501205645](img\QQ截图20230501205645.png)
+
+2.打开spl配套预设：https://github.com/gogofishman/TOP/blob/main/spl/splatoon.md 
+
+3.依次点击每个预设的复制按钮
+
+![QQ截图20230501210125](img\QQ截图20230501210125.png)
+
+4.全部导入后取消"批量导入"的勾选
 
