@@ -6,7 +6,7 @@
 
 记得装cacbotself.dll，少了这个有个别机制会不报
 
-spl安装方法:
+spl安装方法:  https://github.com/gogofishman/TOP/blob/main/spl/spl安装说明.md
 
 spl配套预设：https://github.com/gogofishman/TOP/blob/main/splatoon.md
 
