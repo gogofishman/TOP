@@ -33,7 +33,18 @@ Errer : spl预设由E佬完成, 美化由我完成
 ## 匹配攻略：
 
 - 统一MM+W https://docs.qq.com/doc/DWm1zbGxiWHltQnJk
+
 - P5一运采用莫古力视频打法  https://www.bilibili.com/video/BV1Fb411d73r/?share_source=copy_web&vd_source=ea1df2345e8fcfd1f252bf7a10343c22
+
+- 以下机制的头顶标记均可自定义修改
+
+  1. P2一运  
+  2. P5一运  
+  3. P5二运 
+  4. P5二运后半  
+  5. P5三运三传四传
+
+  
 
 
 
