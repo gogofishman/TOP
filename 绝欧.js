@@ -5186,7 +5186,6 @@ Options.Triggers.push({
             },
         },
         //
-
         {
             id: 'P6 地火',
             type: 'StartsUsing',
