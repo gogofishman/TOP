@@ -5393,7 +5393,7 @@ Options.Triggers.push({
                     ids: [parseInt(matches.sourceId, 16)],
                 });
                 boss = boss.combatants[0];
-                data.P6hp = boss.CurrentHP / boss.MaxHP;
+                data.P6hp = Number(boss.CurrentHP) / Number(boss.MaxHP);
             },
             alertText: '最终狂暴!! 近战LB'
         },
@@ -5402,7 +5402,7 @@ Options.Triggers.push({
             type: 'StartsUsing',
             netRegex: NetRegexes.startsUsing({id: ['7BA0']}),
             delaySeconds: 3,
-            alarmText: (data) => (data.P6hp <= 0.135) ? '兄弟们相信我这把整活了！这都不过我把欧米茄吃下去' : '我操你妈！寄！回伽下一把'
+            alarmText: (data) => (data.P6hp <= 0.14) ? '兄弟们相信我这把整活了！这都不过我把欧米茄吃下去' : '我操你妈！寄！回伽下一把'
         },
 
 
