@@ -920,7 +920,6 @@ for (let i of Object.keys(射手天箭)) {
     射手天箭[i] = JSON.stringify(射手天箭[i]);
     射手天箭[i] = `~${射手天箭[i]}`;
 }
-;
 
 
 Options.Triggers.push({
@@ -5063,7 +5062,7 @@ Options.Triggers.push({
             }),
             condition: (data) => data.P6,
             suppressSeconds: 30,
-            delaySeconds: 7,
+            delaySeconds: 5,
             durationSeconds: 2,
             alertText: '1',
             run: (data) => {
