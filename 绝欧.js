@@ -44,9 +44,6 @@ const 索尼 = {
 const P3TV = 2;
 
 
-
-
-
 //-----------------------------分割线-----------------------------------
 //以下是指挥的开关设置 (你不指挥就不用管下面的)
 
@@ -121,18 +118,17 @@ const P5三运三传标记 = {   //四传也一样，小电视等于拉线
 //-----------------------------分割线-----------------------------------
 
 
-
-
-
-
-
-
 //函数
 Array.prototype.交集 = function (array) {
     return this.filter((value) => array.includes(value));
 };
 Array.prototype.差集 = function (array) {
     return this.filter((x) => !array.includes(x));
+};
+Array.prototype.补集 = function (array) {
+    let parent = [...array];
+    let child = [...this];
+    return parent.filter((x) => !child.includes(x));
 };
 Array.prototype.并集 = function (array) {
     return [...new Set([...this, ...array])];
@@ -143,6 +139,22 @@ Array.prototype.重复元素 = function () {
 };
 Array.prototype.过滤重复元素 = function () {
     return [...new Set([...this])];
+};
+/**
+ * 将一个子数组根据它父集数组的顺序排序,返回排序后的数组
+ *
+ * （如果子数组中含有父集数组没有的元素，则剔除该元素）
+ * @param {array} array
+ * @returns
+ */
+Array.prototype.映射排序 = function (array) {
+    let parent = [...array];
+    let child = [];
+    this.forEach((i) => {
+        if (parent.includes(i)) child.push(i);
+    });
+    child.sort((a, b) => parent.indexOf(a) - parent.indexOf(b));
+    return child;
 };
 
 //鲶鱼精
@@ -405,6 +417,28 @@ function nametocnjob(name, data) {
     return re;
 }
 
+/**
+ *将英文的头顶标记转化为中文口语名称
+ */
+function nametocnmark(mark) {
+    let type = mark.slice(0, 2)
+    if (type === 'at')
+        return `攻击${mark.slice(-1)}`
+    if (type === 'bi')
+        return `锁链${mark.slice(-1)}`
+    if (type === 'st')
+        return `禁止${mark.slice(-1)}`
+    if (type === 'sq')
+        return `方块`
+    if (type === 'ci')
+        return `圆圈`
+    if (type === 'cr')
+        return `叉叉`
+    if (type === 'tr')
+        return `三角`
+    console.error('mark传入有误！');
+}
+
 //计算差集,(大，小)
 function subSet(arr1, arr2) {
     arr2 = (typeof (arr2) != 'object') ? [arr2] : arr2;
@@ -412,6 +446,7 @@ function subSet(arr1, arr2) {
     collectionD = (collectionD.length === 1) ? collectionD[0] : collectionD;
     return collectionD;
 }
+
 var math = {
     /**
      *
@@ -519,7 +554,7 @@ const playstationHeadmarkerIds = [
     headmarkers.firechainSquare,
     headmarkers.firechainX,
 ];
-var bobao = ['上', '右上', '右', '右下', '下', '左下', '左', '左上'];
+const 远程职业 = ['白魔', '占星', '机工', '诗人', '舞者', '黑魔', '召唤', '赤魔', '贤者', '学者'];
 const playstationMarkerMap = {
     [headmarkers.firechainCircle]: '圆圈',
     [headmarkers.firechainTriangle]: '三角',
@@ -3063,41 +3098,92 @@ Options.Triggers.push({
             preRun: (data, matches) => {
                 data.P3小电视点名.push(matches.target);
             },
-            run: (data) => {
-                if (!Mark.includes(3)) return
-                if (data.P3小电视点名.length === 3) {
-                    let 点名 = data.P3小电视点名.sort((a, b) => {
-                        return data._party.indexOf(a) - data._party.indexOf(b)
-                    });
-                    let 无点名 = subSet(data._party, 点名).sort((a, b) => {
-                        return data._party.indexOf(a) - data._party.indexOf(b)
-                    });
-                    let temp = 点名.concat(无点名);
-                    let mark = ['bind1', 'bind2', 'bind3', 'attack1', 'attack2', 'attack3', 'attack4', 'attack5']
+            alertText: (data) => {
+                if (data.P3小电视点名.length !== 3) return
+                //定义基础优先级tdh
+                let 基础优先级 = [...data._party];
+                let [removed] = 基础优先级.splice(0, 1);
+                基础优先级.splice(6, 0, removed);
+                //优化
+                data.小电视日基脑死 = {
+                    bind1: '',
+                    bind2: '',
+                    bind3: '',
+                    attack1: '',
+                    attack2: '',
+                    attack3: '',
+                    attack4: '',
+                    attack5: ''
+                };
+                //重新分近战组和远程组，优先级依然是H1-H2
+                let 近战组 = [];
+                let 远程组 = [];
+                for (let name of 基础优先级) {
+                    let job = nametocnjob(name, data);
+                    if (远程职业.includes(job))
+                        远程组.push(name)
+                    else
+                        近战组.push(name)
+                }
+                近战组 = 近战组.映射排序(基础优先级);
+                let temp = 近战组[1];
+                近战组[1] = 近战组[3];
+                近战组[3] = temp;
+                temp = 近战组[0];
+                近战组[0] = 近战组[2];
+                近战组[2] = temp;
+                远程组 = 远程组.映射排序(基础优先级);
+                //分配点名3人
+                let 点名3人组 = data.P3小电视点名.映射排序(近战组.concat(远程组));
+                data.小电视日基脑死.bind3 = 点名3人组[0];
+                data.小电视日基脑死.bind2 = 点名3人组[1];
+                data.小电视日基脑死.bind1 = 点名3人组[2];
+                //分配无点名5人
+                近战组 = 近战组.映射排序(data._party);
+                temp = 近战组[1];
+                近战组[1] = 近战组[3];
+                近战组[3] = temp;
+                let 无点名5人组 = data.P3小电视点名.补集(基础优先级);
+                无点名5人组 = 无点名5人组.映射排序(近战组.concat(远程组));
+                data.小电视日基脑死.attack1 = 无点名5人组[0];
+                data.小电视日基脑死.attack2 = 无点名5人组[1];
+                data.小电视日基脑死.attack4 = 无点名5人组[2];
+                data.小电视日基脑死.attack3 = 无点名5人组[3];
+                data.小电视日基脑死.attack5 = 无点名5人组[4];
+                //优化换位
+                let 坦克 = 基础优先级.slice(0, 2);
+                let 近战 = 基础优先级.slice(2, 4);
+                if (近战.includes(data.小电视日基脑死.attack1) && 坦克.includes(data.小电视日基脑死.attack2)) {
+                    temp = data.小电视日基脑死.attack1;
+                    data.小电视日基脑死.attack1 = data.小电视日基脑死.attack2;
+                    data.小电视日基脑死.attack2 = temp
+                }
+                if (近战.includes(data.小电视日基脑死.attack1) && 坦克.includes(data.小电视日基脑死.attack4)) {
+                    temp = data.小电视日基脑死.attack1;
+                    data.小电视日基脑死.attack1 = data.小电视日基脑死.attack4;
+                    data.小电视日基脑死.attack4 = temp
+                }
 
-                    let dic = {};
-                    for (const i of temp) {
-                        let name = i;
-                        let _mark = mark[temp.indexOf(i)];
-                        dic[_mark] = name;
+                //log和自己
+                console.log('P3日基脑死小电视');
+                let re;
+                for (let mark of Object.keys(data.小电视日基脑死)) {
+                    let name = data.小电视日基脑死[mark];
+                    console.log(`'${mark}' : ${nametocnjob(name, data)}  ${name}`);
+                    if (name === data.me) {
+                        re = nametocnmark(mark)
                     }
-                    if (nametocnjob(dic['attack2'], data) === '镰刀' && nametocnjob(dic['attack3'], data) === '武僧') {
-                        let temp = dic['attack2']
-                        dic['attack2'] = dic['attack3'];
-                        dic['attack3'] = temp;
-                    }
-                    if (!useMark) return
-                    for (const i in dic) {
-                        if (dic.hasOwnProperty(i)) {
-                            PostNamazu('mark', {
-                                Name: dic[i],
-                                MarkType: i,
-                                LocalOnly: onlyMeMarkP3,
-                            })
-                        }
+                    //标记
+                    if (Mark.includes(3) && useMark) {
+                        PostNamazu('mark', {
+                            Name: name,
+                            MarkType: mark,
+                            LocalOnly: onlyMeMarkP3,
+                        })
                     }
                 }
-            },
+                return re
+            }
         },
         //
         {
