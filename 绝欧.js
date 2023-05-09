@@ -1,4 +1,4 @@
-//5.1.0
+//5.10.0
 
 //是否开启指挥模式(目标标记，聊天框播报) (一个队必须只有一个人开,不然会顶掉)
 const 指挥模式 = false;
@@ -3166,7 +3166,7 @@ Options.Triggers.push({
 
                 //log和自己
                 console.log('P3日基脑死小电视');
-                let re;
+                let re = '';
                 for (let mark of Object.keys(data.小电视日基脑死)) {
                     let name = data.小电视日基脑死[mark];
                     console.log(`'${mark}' : ${nametocnjob(name, data)}  ${name}`);
@@ -5487,7 +5487,11 @@ Options.Triggers.push({
             type: 'StartsUsing',
             netRegex: NetRegexes.startsUsing({id: ['7BA0']}),
             delaySeconds: 3,
-            alarmText: (data) => (data.P6hp <= 0.14) ? '兄弟们相信我这把整活了！这都不过我把欧米茄吃下去' : '我操你妈！寄！回伽下一把'
+            alarmText: (data) => {
+                if (data.P6hp > 0.17) return '我操你妈！寄！回伽下一把'
+                if (data.P6hp <= 0.17 && data.P6hp >= 0.14) return '加把劲啊哥们，不往死里打就要回伽了'
+                if (data.P6hp < 0.14) return '兄弟们相信我这把整活了！这都不过我把欧米茄吃下去'
+            }
         },
 
 
