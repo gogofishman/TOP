@@ -30,6 +30,10 @@
 ~Lv2~{"Name":"P2 一运击退寻找12点","Group":"绝欧米茄","DCond":5,"ElementsL":[{"Name":"","type":1,"radius":10.0,"color":1174405375,"overlayBGColor":4278190080,"overlayTextColor":4294967295,"overlayVOffset":1.2,"overlayFScale":3.0,"thicc":5.0,"overlayText":"12点","refActorDataID":15713,"refActorComparisonType":3,"tether":true,"Filled":true}],"UseTriggers":true,"Triggers":[{"Type":2,"Duration":8.0,"Match":"(7635>31551)","MatchDelay":22.0}]}
 ```
 
+```
+~Lv2~{"Name":"P2 二运M直线","Group":"绝欧米茄","ZoneLockH":[1122],"ElementsL":[{"Name":"1","type":3,"refY":45.0,"radius":5.0,"color":838895871,"refActorDataID":15714,"refActorRequireCast":true,"refActorCastId":[31539],"FillStep":0.1,"refActorComparisonType":3,"includeRotation":true,"onlyUnTargetable":true,"onlyVisible":true,"Filled":true}]}
+```
+
 
 
 ## P3

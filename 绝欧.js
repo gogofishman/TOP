@@ -5548,6 +5548,15 @@ Options.Triggers.push({
             netRegex: {effectId: 'D74', count: '03'},
             disabled: true,
             condition: (data, matches) => data.phase === 'omega' && matches.target === data.me,
+        },
+        {
+            id: "TOP Optical Unit Location",
+            type: "MapEffect",
+            netRegex: {
+              "location": "0[1-8]",
+              "flags": "00020001"
+            },
+            disabled:true
         }
     ],
 });
