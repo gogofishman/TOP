@@ -2672,12 +2672,12 @@ Options.Triggers.push({
                 if (rotColor === 'red') {
                     data.P3HW大圈塔 = '红';
                     data.P3HW分摊塔 = '蓝';
-                    if (P3PostNamazu1) PostNamazu('command', '大圈红色red，分摊蓝色blue');
+                    if (P3PostNamazu1) PostNamazu('command', '/p 大圈红色red，分摊蓝色blue');
                     return output.red();
                 } else if (rotColor === 'blue') {
                     data.P3HW大圈塔 = '蓝';
                     data.P3HW分摊塔 = '红';
-                    if (P3PostNamazu1) PostNamazu('command', '大圈蓝色blue，分摊红色red');
+                    if (P3PostNamazu1) PostNamazu('command', '/p 大圈蓝色blue，分摊红色red');
                     return output.blue();
                 }
                 return output.unknown();
