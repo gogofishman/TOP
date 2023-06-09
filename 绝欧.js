@@ -5553,10 +5553,122 @@ Options.Triggers.push({
             id: "TOP Optical Unit Location",
             type: "MapEffect",
             netRegex: {
-              "location": "0[1-8]",
-              "flags": "00020001"
+                "location": "0[1-8]",
+                "flags": "00020001"
             },
-            disabled:true
+            disabled: true
+        },
+        {
+            id: "TOP Omega Pre-Safe Spot",
+            type: "Ability",
+            netRegex: {
+                "id": "8015",
+                "source": "欧米茄M",
+                "capture": false
+            },
+            disabled: true
+        },
+        {
+            id: 'TOP Cosmo Meteor',
+            type: 'StartsUsing',
+            netRegex: {id: '7BB0', source: 'Alpha Omega', capture: false},
+            disabled: true
+        },
+        {
+            id: 'TOP Wave Cannon Wild Charge',
+            type: 'StartsUsing',
+            netRegex: {id: '7BA9', source: 'Alpha Omega', capture: false},
+            disabled: true
+        },
+        {
+            id: 'TOP Unlimited Wave Cannon Dodges',
+            type: 'StartsUsing',
+            netRegex: {id: '7BAC', source: 'Alpha Omega', capture: false},
+            disabled: true
+        },
+        {
+            id: 'TOP Unlimited Wave Cannon Collect',
+            type: 'StartsUsing',
+            netRegex: {id: '7BAD', source: 'Alpha Omega'},
+            disabled: true
+        },
+        {
+            id: 'TOP Unlimited Wave Cannon',
+            type: 'StartsUsing',
+            netRegex: {id: '7BAC', source: 'Alpha Omega', capture: false},
+            disabled: true
+        },
+        {
+            id: 'TOP Cosmo Dive',
+            type: 'StartsUsing',
+            netRegex: {id: '7BA6', source: 'Alpha Omega', capture: false},
+            disabled: true
+        },
+        {
+            id: 'TOP Cosmo Arrow Dodges',
+            type: 'Ability',
+            netRegex: {id: '7BA4', source: 'Alpha Omega', capture: false},
+            disabled: true
+        },
+        {
+            id: 'TOP Cosmo Arrow In/Out Wait',
+            type: 'Ability',
+            netRegex: {id: '7BA3', capture: false},
+            disabled: true
+        },
+        {
+            id: 'TOP Cosmo Arrow In/Out First',
+            type: 'StartsUsing',
+            netRegex: {id: '7BA3', capture: false},
+            disabled: true
+        },
+        {
+            id: 'TOP Cosmo Arrow In/Out Collect',
+            type: 'StartsUsing',
+            netRegex: {id: '7BA3', capture: false},
+            disabled: true
+        },
+        {
+            id: 'TOP P6 Cosmo Memory',
+            type: 'StartsUsing',
+            netRegex: {id: '7BA1', source: 'Alpha Omega', capture: false},
+            disabled: true
+        },
+        {
+            id: 'TOP Omega Safe Spot 2 Reminder',
+            type: 'StartsUsing',
+            netRegex: {id: ['7B9B', '7B9C'], source: 'Omega'},
+            disabled: true
+        },
+        {
+            id: 'TOP Omega Safe Spots',
+            type: 'StartsUsing',
+            netRegex: {id: ['7B9B', '7B9C'], source: 'Omega'},
+            disabled: true
+        },
+        {
+            id: 'TOP Omega Pre-Safe Spot',
+            type: 'Ability',
+            netRegex: {id: '8015', source: 'Omega-M', capture: false},
+            disabled: true
+        },
+        {
+            id: 'TOP P5 Omega Tether Detector',
+            type: 'Tether',
+            netRegex: {id: '0059', capture: false},
+            disabled: true
+        },
+        {
+            id: 'TOP P5 Delta Debuffs',
+            type: 'Ability',
+            netRegex: {id: '7B6D', capture: false},
+            disabled: true
+        },
+        {
+            id: 'TOP P5 Trio Debuff Collector',
+            type: 'GainsEffect',
+            netRegex: {effectId: ['D72', 'D73']},
+            disabled: true
         }
     ],
 });
