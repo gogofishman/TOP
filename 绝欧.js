@@ -4467,7 +4467,7 @@ Options.Triggers.push({
                 第二次 = 第二次.filter(item => temp2.indexOf(item) > -1);
 
                 data.P5三运点位temp = [第一次, data.P5三运安全点.one[第一次], 第二次, data.P5三运安全点.two[第二次]];
-                let re = `先 ${第一次} ${data.P5三运安全点.one[第一次]}，后 ${第二次} ${data.P5三运安全点.two[第二次]}`;
+                let re = `/p 先 ${第一次} ${data.P5三运安全点.one[第一次]}，后 ${第二次} ${data.P5三运安全点.two[第二次]}`;
                 if (P5PostNamazu) PostNamazu('command', re);
                 return re
             },
